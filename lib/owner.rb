@@ -1,7 +1,6 @@
 class Owner 
   attr_reader :name, :species
   attr_accessor :cats
-  
   @@all = []
 
   def initialize(name, species = "human")
@@ -41,19 +40,33 @@ class Owner
     Dog.all.select {|dog| dog.owner == self}
   end
 
-  # def buy_cat(name)
-  #   new_cat = Cat.new(name)
-  # end
-
-  def buy_cat(cat)
-    cat.owner == self
+  def buy_cat(name)
+    new_cat = Cat.new(name, self)
   end
 
+  def buy_dog(name)
+    new_dog = Dog.new(name, self)
+  end
 
+  def walk_dogs
+    Dog.all.map {|dog| dog.mood = "happy"}
+  end
+
+  def feed_cats
+    Cat.all.map {|cat| cat.mood = "happy"}
+  end  
+
+  def sell_pets 
+    Dog.all.map {|dog| dog.mood = "nervous"}
+    Cat.all.map {|cat| cat.mood = "nervous"}
+    Dog.all.map {|dog| dog.owner = nil}
+    Cat.all.map {|cat| cat.owner = nil}
+  end
+ 
+  def list_pets
+#    "I have #{d} dog(s), and #{c} cat(s)."
+      "I have #{dogs.count} dog(s), and #{cats.count} cat(s)."
+  end
   
-
-
-
-
 end
 
